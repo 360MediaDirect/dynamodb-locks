@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "author": "Tom Shawver <tom@360mediadirect.com>",
   "license": "UNLICENSED",
-  "private": true,
+  "repository": "https://github.com/360MediaDirect/locks",
   "scripts": {
     "prepublish": "npm run build",
     "build": "tsc",
@@ -33,17 +33,9 @@
     "prettier": "^2.8.4",
     "typescript": "^4.0.3"
   },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.ts"
-    ]
-  },
   "lint-staged": {
     "*.{js,ts,tsx}": [
       "eslint --fix --resolve-plugins-relative-to ."
-    ],
-    "*.{md,json}": [
-      "prettier -l --write"
     ]
   }
 }
