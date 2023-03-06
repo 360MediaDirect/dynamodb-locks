@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "lib": ["ES7"],
+    "removeComments": true,
+    "moduleResolution": "node",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "sourceMap": true,
+    "target": "ES5",
+    "outDir": "dist",
+    "sourceRoot": "src",
+    "esModuleInterop": true,
+    "declaration": true,
+    "resolveJsonModule": true
+  },
+  "include": ["./src/**/*.ts"],
+  "exclude": [
+    ".serverless/**/*",
+    "./**/__tests__/*",
+    "./**/.serverless/**/*",
+    "./**/.webpack/**/*",
+    "./**/_warmup/**/*"
+  ]
+}

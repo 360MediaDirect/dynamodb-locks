@@ -1,0 +1,52 @@
+{
+  "name": "@360mediadirect/locks",
+  "version": "1.0.0",
+  "description": "A DynamoDB-powered distributed mutex locking system",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "Tom Shawver <tom@360mediadirect.com>",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "tsc",
+    "lint": "eslint './src/**/*.{js,ts}'",
+    "lint:fix": "eslint './src/**/*.{js,ts}' --fix; prettier -l --write **/*.{md,json}",
+    "lint-staged": "lint-staged",
+    "test": "yarn lint && LOCKS_TABLE=test LOG_LEVEL=error serverless-bundle test --coverage",
+    "test:watch": "yarn lint && LOCKS_TABLE=test LOG_LEVEL=error serverless-bundle test --watchAll",
+    "clean": "rm -rf node_modules dist"
+  },
+  "files": [
+    "./dist/*"
+  ],
+  "dependencies": {
+    "@360mediadirect/log": "^1.0.4",
+    "@deliveryhero/dynamodb-lock": "^1.2.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.2.0",
+    "@typescript-eslint/parser": "^4.2.0",
+    "aws-sdk": "2.831.0",
+    "eslint": "^7.9.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "lint-staged": "^10.4.0",
+    "prettier": "^2.1.2",
+    "serverless-bundle": "^5.3.0",
+    "typescript": "^4.0.3"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.ts"
+    ]
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix --resolve-plugins-relative-to ."
+    ],
+    "*.{md,json}": [
+      "prettier -l --write"
+    ]
+  }
+}
