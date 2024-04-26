@@ -1,25 +1,25 @@
-# Panache Locks
+# DynamoDB Locks
 
 A distributed mutex locking system based on DynamoDB
 
 ## Quick Start
 
 ```typescript
-import { locks } from '@360mediadirect/locks'
+import { locks } from "@360mediadirect/dyanmodb-locks";
 
 async function someFunc() {
-  console.log('About to get a lock and do something')
-  await acquire('someKey', () => {
-    console.log('I am currently the only process that has "someKey" locked')
+  console.log("About to get a lock and do something");
+  await acquire("someKey", () => {
+    console.log('I am currently the only process that has "someKey" locked');
     // Thrown errors or promise rejections here will bubble up
-  })
-  console.log('Task completed, someKey has been released')
+  });
+  console.log("Task completed, someKey has been released");
 }
 ```
 
 ## Serverless Setup
 
-### From scratch (no Panache)
+### From scratch
 
 Locks are created by issuing conditional writes and consistent reads on a DynamoDB table. Your service needs both the table, and permission to use it.
 
@@ -45,7 +45,7 @@ resources:
         TimeToLiveSpecification:
           AttributeName: ttl
           Enabled: true
-        TableName: 'panache-mutex-locks-${self:provider.stage}'
+        TableName: "mutex-locks-${self:provider.stage}"
         BillingMode: PAY_PER_REQUEST
 ```
 
@@ -56,17 +56,13 @@ provider:
   iam:
     role:
       statements:
-        - Effect: 'Allow'
+        - Effect: "Allow"
           Action:
-            - 'dynamodb:*'
+            - "dynamodb:*"
           Resource:
-            - arn:aws:dynamodb:${self:provider.region}:${aws:accountId}:table/panache-mutex-locks-${self:provider.stage}
-            - arn:aws:dynamodb:${self:provider.region}:${aws:accountId}:table/panache-mutex-locks-${self:provider.stage}/*
+            - arn:aws:dynamodb:${self:provider.region}:${aws:accountId}:table/mutex-locks-${self:provider.stage}
+            - arn:aws:dynamodb:${self:provider.region}:${aws:accountId}:table/mutex-locks-${self:provider.stage}/*
 ```
-
-### Panache setup
-
-The locks table is created in the `api` service. Any service that wishes to use it only needs to implement the permissions above, and set the `LOCKS_TABLE` environment variable (see below).
 
 ## Configuration
 
@@ -75,23 +71,23 @@ Locks can be configured by passing an object to the Locks constructor, or by set
 ### Configuration by object
 
 ```typescript
-import { Locks } from '@360mediadirect/locks'
+import { Locks } from "@360mediadirect/dyanmodb-locks";
 
 const locks = new Locks({
   /* see options below */
-})
+});
 ```
 
 ### Environment variable-only setup
 
 ```typescript
-import { locks, Locks } from '@360mediadirect/locks'
+import { locks, Locks } from "@360mediadirect/locks";
 
 // If the env vars were already set by this point, "locks" is an
 // already-constructed instance of Locks pre-configured using the env vars.
 
-process.env.LOCKS_TABLE = 'MyTable'
-const myLocks = new Locks()
+process.env.LOCKS_TABLE = "MyTable";
+const myLocks = new Locks();
 
 // MyLocks observes the new env var changes.
 ```
@@ -124,4 +120,4 @@ Creates a child instance from the current Locks instance that is configured the 
 
 ## License
 
-Panache Locks is Copyright 360 Media Direct and is not licensed for external use, public or private, commercially or otherwise.
+DynamoDB Locks is Copyright 360 Media Direct and is not licensed for external use, public or private, commercially or otherwise.
