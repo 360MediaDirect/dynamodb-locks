@@ -13,12 +13,5 @@
     "declaration": true,
     "resolveJsonModule": true
   },
-  "include": ["./src/**/*.ts"],
-  "exclude": [
-    ".serverless/**/*",
-    "./**/__tests__/*",
-    "./**/.serverless/**/*",
-    "./**/.webpack/**/*",
-    "./**/_warmup/**/*"
-  ]
+  "include": ["./src/**/*.ts"]
 }

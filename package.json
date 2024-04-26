@@ -1,6 +1,6 @@
 {
-  "name": "@360mediadirect/locks",
-  "version": "1.0.0",
+  "name": "@360mediadirect/dynamodb-locks",
+  "version": "1.1.0",
   "description": "A DynamoDB-powered distributed mutex locking system",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,32 +10,19 @@
   "scripts": {
     "prepublish": "npm run build",
     "build": "tsc",
-    "lint": "eslint './src/**/*.{js,ts}'",
-    "lint:fix": "eslint './src/**/*.{js,ts}' --fix; prettier -l --write **/*.{md,json}",
-    "lint-staged": "lint-staged",
     "clean": "rm -rf node_modules dist"
   },
   "files": [
     "./dist/*"
   ],
   "dependencies": {
-    "@360mediadirect/log": "^1.0.4",
-    "@deliveryhero/dynamodb-lock": "^1.2.1"
+    "@360mediadirect/log": "^1.1.0",
+    "@deliveryhero/dynamodb-lock": "^1.2.4"
   },
   "devDependencies": {
-    "@types/node": "^18.14.6",
-    "@typescript-eslint/eslint-plugin": "^4.2.0",
-    "@typescript-eslint/parser": "^4.2.0",
+    "@types/node": "^20.12.7",
     "aws-sdk": "^2.1328.0",
-    "eslint-config-prettier": "^6.12.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "lint-staged": "^10.4.0",
-    "prettier": "^2.8.4",
-    "typescript": "^4.0.3"
-  },
-  "lint-staged": {
-    "*.{js,ts,tsx}": [
-      "eslint --fix --resolve-plugins-relative-to ."
-    ]
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5"
   }
 }
