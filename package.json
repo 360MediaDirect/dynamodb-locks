@@ -1,28 +1,43 @@
 {
   "name": "@360mediadirect/dynamodb-locks",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A DynamoDB-powered distributed mutex locking system",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "author": "Tom Shawver <tom@360mediadirect.com>",
   "license": "UNLICENSED",
-  "repository": "https://github.com/360MediaDirect/locks",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/360MediaDirect/dynamodb-locks.git"
+  },
   "scripts": {
     "prepublish": "npm run build",
     "build": "tsc",
-    "clean": "rm -rf node_modules dist"
+    "clean": "rm -rf node_modules dist",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:unit": "jest test/unit",
+    "coverage:check": "jest --coverage --coverageThreshold='{\"global\":{\"branches\":95,\"functions\":95,\"lines\":95,\"statements\":95}}'",
+    "pretest": "npm run format",
+    "format": "prettier --write 'src/**/*.ts' 'test/**/*.ts'",
+    "prepublishOnly": "npm run test:coverage && npm run build"
   },
   "files": [
     "./dist/*"
   ],
   "dependencies": {
-    "@360mediadirect/log": "^1.1.0",
+    "@360mediadirect/log": "^1.1.2",
     "@deliveryhero/dynamodb-lock": "^1.2.4"
   },
   "devDependencies": {
-    "@types/node": "^20.12.7",
-    "aws-sdk": "^2.1328.0",
-    "prettier": "^3.2.5",
-    "typescript": "^5.4.5"
+    "@types/jest": "^29.5.14",
+    "@types/node": "^20.19.27",
+    "aws-sdk": "^2.1693.0",
+    "aws-sdk-mock": "^5.9.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.7.4",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.9.3"
   }
 }

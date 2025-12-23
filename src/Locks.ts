@@ -2,7 +2,7 @@ import AWS from 'aws-sdk'
 import {
   dynamoDBLockClientFactory,
   LockClient,
-  LockOptions
+  LockOptions,
 } from '@deliveryhero/dynamodb-lock'
 import log from '@360mediadirect/log'
 
@@ -50,7 +50,7 @@ export class Locks {
       owner: process.env.LOCKS_OWNER || 'Locks',
       debugLogs: process.env.LOCKS_DEBUG_LOGS === '1',
       ...opts,
-      ...(!opts.dynamodb && { dynamodb: new AWS.DynamoDB.DocumentClient() })
+      ...(!opts.dynamodb && { dynamodb: new AWS.DynamoDB.DocumentClient() }),
     }
     this.prefix = this.config.prefix
     this.lockOptions = {
@@ -59,11 +59,11 @@ export class Locks {
       trustLocalTime: true,
       waitDurationInMs: this.config.retryDelayMs,
       maxRetryCount: Math.floor(
-        this.config.maxWaitMs / this.config.retryDelayMs
+        this.config.maxWaitMs / this.config.retryDelayMs,
       ),
       additionalAttributes: {
-        owner: this.config.owner
-      }
+        owner: this.config.owner,
+      },
     }
     this.client = dynamoDBLockClientFactory(
       this.config.dynamodb,
@@ -71,11 +71,11 @@ export class Locks {
         tableName: process.env.LOCKS_TABLE || 'locks-dev',
         partitionKey: 'id',
         sortKey: 'group',
-        ttlKey: 'ttl'
+        ttlKey: 'ttl',
       },
       (severity, message) => {
         this.log(severity, message)
-      }
+      },
     )
   }
 
